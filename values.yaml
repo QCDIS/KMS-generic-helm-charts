@@ -1,9 +1,17 @@
 # Default values for kms-generic-helm-charts.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+global:
+  postgresqlEnabled: true
+  elasticsearchEnabled: true
 
 kms_generic:
   github_query_url: ""
+  elasticsearch:
+    url: ""
+
+
+
   replicaCount: 1
 
   image:
@@ -82,6 +90,3 @@ kms_generic:
   tolerations: []
 
   affinity: {}
-
-  elasticsearch:
-    url: ""

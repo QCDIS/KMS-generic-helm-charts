@@ -34,55 +34,55 @@ spec:
           image: "{{ .Values.kms_generic.image.repository }}:{{ .Values.kms_generic.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.kms_generic.image.pullPolicy }}
           env:
-            - name: ACCESS_TOKEN_Github
-              valueFrom:
-                configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
-                  key: ACCESS_TOKEN_Github
             - name: ELASTICSEARCH_URL
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: ELASTICSEARCH_URL
+            - name: ACCESS_TOKEN_Github
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ACCESS_TOKEN_Github
             - name: ACCESS_TOKEN_Gitlab
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: ACCESS_TOKEN_Gitlab
             - name: ELASTICSEARCH_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: ELASTICSEARCH_PASSWORD
             - name: ELASTICSEARCH_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: ELASTICSEARCH_USERNAME
             - name: GITHUB_QUERY_URL
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: GITHUB_QUERY_URL
             - name: KMS_ADMIN_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: KMS_ADMIN_USERNAME
             - name: KMS_ADMIN_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: KMS_ADMIN_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: POSTGRES_DB
             - name: POSTGRES_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: POSTGRES_PASSWORD
           ports:
             - name: http
