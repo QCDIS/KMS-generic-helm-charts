@@ -1,1 +1,1 @@
-# KMS-generic-helm-charts
+# kms-generic-helm-charts

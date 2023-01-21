@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "KMS-generic-helm-charts.fullname" . }}
+  name: {{ include "kms-generic-helm-charts.fullname" . }}
   labels:
-    {{- include "KMS-generic-helm-charts.labels" . | nindent 4 }}
+    {{- include "kms-generic-helm-charts.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.kms-generic.autoscaling.enabled }}
   replicas: {{ .Values.kms-generic.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "KMS-generic-helm-charts.selectorLabels" . | nindent 6 }}
+      {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.kms-generic.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "KMS-generic-helm-charts.selectorLabels" . | nindent 8 }}
+        {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.kms-generic.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "KMS-generic-helm-charts.serviceAccountName" . }}
+      serviceAccountName: {{ include "kms-generic-helm-charts.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.kms-generic.podSecurityContext | nindent 8 }}
       containers:
