@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 kms_generic:
+  github_query_url: ""
   replicaCount: 1
 
   image:
@@ -81,3 +82,6 @@ kms_generic:
   tolerations: []
 
   affinity: {}
+
+  elasticsearch:
+    url: ""
