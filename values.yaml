@@ -10,6 +10,9 @@ kms_generic:
   elasticsearch:
     url: ""
 
+  security:
+    kms_admin: ""
+    kms_password: ""
 
 
   replicaCount: 1
