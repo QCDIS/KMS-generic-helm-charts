@@ -9,6 +9,7 @@ kms_generic:
   github_query_url: ""
   elasticsearch:
     url: ""
+
   security:
     kms_admin: ""
     kms_password: ""
