@@ -6,7 +6,7 @@ metadata:
     {{- include "notebook-search-app.labels" . | nindent 4 }}
 
 data:
-  ELASTICSEARCH_URL : {{ .Values.elasticsearch.kms_generic.elasticsearch_url | default http://{{ .Release.Name }}-elasticsearch:"9200" }} }}
+  ELASTICSEARCH_URL : {{ .Values.elasticsearch.kms_generic.elasticsearch_url | default "http://"{{ .Release.Name }}-elasticsearch:"9200" }} }}
   ELASTICSEARCH_USERNAME : {{ .Values.elasticsearch.elasticUsername | default "elastic" | quote }} }}
   ELASTICSEARCH_PASSWORD : {{ .Values.elasticsearch.elasticPassword }}
   ACCESS_TOKEN_Github: ""
