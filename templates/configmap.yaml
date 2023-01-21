@@ -11,8 +11,8 @@ data:
 {{- else }}
   ELASTICSEARCH_URL : "http://{{ .Release.Name }}-elasticsearch:9200"
 {{- end }}
-  ELASTICSEARCH_USERNAME : {{ .Values.elasticsearch.elasticUsername | default "elastic" | quote }}
-  ELASTICSEARCH_PASSWORD : {{ .Values.elasticsearch.elasticPassword }}
+  ELASTICSEARCH_USERNAME : {{ .Values.elasticsearch.security.elasticUsername | default "elastic" | quote }}
+  ELASTICSEARCH_PASSWORD : {{ .Values.elasticsearch.security.elasticPassword | default "elastic" | quote}}
   ACCESS_TOKEN_Github: ""
   ACCESS_TOKEN_Gitlab: ""
   GITHUB_QUERY_URL: {{ .Values.kms_generic.github_query_url | default "https://api.github.com/search/code?l=Jupyter+Notebook&q=ipynb+in:path+extension:ipynb" }}
