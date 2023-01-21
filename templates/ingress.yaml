@@ -1,9 +1,9 @@
-{{- if .Values.kms-generic.ingress.enabled -}}
+{{- if .Values.kms_generic.ingress.enabled -}}
 {{- $fullName := include "kms-generic-helm-charts.fullname" . -}}
-{{- $svcPort := .Values.kms-generic.service.port -}}
-{{- if and .Values.kms-generic.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
-  {{- if not (hasKey .Values.kms-generic.ingress.annotations "kubernetes.io/ingress.class") }}
-  {{- $_ := set .Values.kms-generic.ingress.annotations "kubernetes.io/ingress.class" .Values.kms-generic.ingress.className}}
+{{- $svcPort := .Values.kms_generic.service.port -}}
+{{- if and .Values.kms_generic.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.kms_generic.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.kms_generic.ingress.annotations "kubernetes.io/ingress.class" .Values.kms_generic.ingress.className}}
   {{- end }}
 {{- end }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -18,17 +18,17 @@ metadata:
   name: {{ $fullName }}
   labels:
     {{- include "kms-generic-helm-charts.labels" . | nindent 4 }}
-  {{- with .Values.kms-generic.ingress.annotations }}
+  {{- with .Values.kms_generic.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if and .Values.kms-generic.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
-  ingressClassName: {{ .Values.kms-generic.ingress.className }}
+  {{- if and .Values.kms_generic.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.kms_generic.ingress.className }}
   {{- end }}
-  {{- if .Values.kms-generic.ingress.tls }}
+  {{- if .Values.kms_generic.ingress.tls }}
   tls:
-    {{- range .Values.kms-generic.ingress.tls }}
+    {{- range .Values.kms_generic.ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -37,7 +37,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.kms-generic.ingress.hosts }}
+    {{- range .Values.kms_generic.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:

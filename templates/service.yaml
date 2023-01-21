@@ -5,9 +5,9 @@ metadata:
   labels:
     {{- include "kms-generic-helm-charts.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.kms-generic.service.type }}
+  type: {{ .Values.kms_generic.service.type }}
   ports:
-    - port: {{ .Values.kms-generic.service.port }}
+    - port: {{ .Values.kms_generic.service.port }}
       targetPort: http
       protocol: TCP
       name: http

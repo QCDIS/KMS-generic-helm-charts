@@ -2,7 +2,7 @@
 Expand the name of the chart.
 */}}
 {{- define "kms-generic-helm-charts.name" -}}
-{{- default .Chart.Name .Values.kms-generic.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- default .Chart.Name .Values.kms_generic.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -11,10 +11,10 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "kms-generic-helm-charts.fullname" -}}
-{{- if .Values.kms-generic.fullnameOverride }}
-{{- .Values.kms-generic.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- if .Values.kms_generic.fullnameOverride }}
+{{- .Values.kms_generic.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- $name := default .Chart.Name .Values.kms-generic.nameOverride }}
+{{- $name := default .Chart.Name .Values.kms_generic.nameOverride }}
 {{- if contains $name .Release.Name }}
 {{- .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -54,9 +54,9 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Create the name of the service account to use
 */}}
 {{- define "kms-generic-helm-charts.serviceAccountName" -}}
-{{- if .Values.kms-generic.serviceAccount.create }}
-{{- default (include "kms-generic-helm-charts.fullname" .) .Values.kms-generic.serviceAccount.name }}
+{{- if .Values.kms_generic.serviceAccount.create }}
+{{- default (include "kms-generic-helm-charts.fullname" .) .Values.kms_generic.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.kms-generic.serviceAccount.name }}
+{{- default "default" .Values.kms_generic.serviceAccount.name }}
 {{- end }}
 {{- end }}

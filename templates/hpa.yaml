@@ -1,4 +1,4 @@
-{{- if .Values.kms-generic.autoscaling.enabled }}
+{{- if .Values.kms_generic.autoscaling.enabled }}
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
@@ -10,19 +10,19 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ include "kms-generic-helm-charts.fullname" . }}
-  minReplicas: {{ .Values.kms-generic.autoscaling.minReplicas }}
-  maxReplicas: {{ .Values.kms-generic.autoscaling.maxReplicas }}
+  minReplicas: {{ .Values.kms_generic.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.kms_generic.autoscaling.maxReplicas }}
   metrics:
-    {{- if .Values.kms-generic.autoscaling.targetCPUUtilizationPercentage }}
+    {{- if .Values.kms_generic.autoscaling.targetCPUUtilizationPercentage }}
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.kms-generic.autoscaling.targetCPUUtilizationPercentage }}
+        targetAverageUtilization: {{ .Values.kms_generic.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
-    {{- if .Values.kms-generic.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- if .Values.kms_generic.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.kms-generic.autoscaling.targetMemoryUtilizationPercentage }}
+        targetAverageUtilization: {{ .Values.kms_generic.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
 {{- end }}

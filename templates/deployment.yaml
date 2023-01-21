@@ -5,34 +5,34 @@ metadata:
   labels:
     {{- include "kms-generic-helm-charts.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.kms-generic.autoscaling.enabled }}
-  replicas: {{ .Values.kms-generic.replicaCount }}
+  {{- if not .Values.kms_generic.autoscaling.enabled }}
+  replicas: {{ .Values.kms_generic.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
       {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.kms-generic.podAnnotations }}
+      {{- with .Values.kms_generic.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
         {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.kms-generic.imagePullSecrets }}
+      {{- with .Values.kms_generic.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "kms-generic-helm-charts.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.kms-generic.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.kms_generic.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.kms-generic.securityContext | nindent 12 }}
-          image: "{{ .Values.kms-generic.image.repository }}:{{ .Values.kms-generic.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.kms-generic.image.pullPolicy }}
+            {{- toYaml .Values.kms_generic.securityContext | nindent 12 }}
+          image: "{{ .Values.kms_generic.image.repository }}:{{ .Values.kms_generic.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.kms_generic.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 8000
@@ -46,16 +46,16 @@ spec:
               path: /
               port: http
           resources:
-            {{- toYaml .Values.kms-generic.resources | nindent 12 }}
-      {{- with .Values.kms-generic.nodeSelector }}
+            {{- toYaml .Values.kms_generic.resources | nindent 12 }}
+      {{- with .Values.kms_generic.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.kms-generic.affinity }}
+      {{- with .Values.kms_generic.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.kms-generic.tolerations }}
+      {{- with .Values.kms_generic.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
