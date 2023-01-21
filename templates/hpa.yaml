@@ -1,0 +1,28 @@
+{{- if .Values.kms-generic.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "KMS-generic-helm-charts.fullname" . }}
+  labels:
+    {{- include "KMS-generic-helm-charts.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "KMS-generic-helm-charts.fullname" . }}
+  minReplicas: {{ .Values.kms-generic.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.kms-generic.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.kms-generic.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.kms-generic.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.kms-generic.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.kms-generic.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}

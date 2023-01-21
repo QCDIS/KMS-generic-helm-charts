@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "KMS-generic-helm-charts.fullname" . }}
+  labels:
+    {{- include "KMS-generic-helm-charts.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.kms-generic.autoscaling.enabled }}
+  replicas: {{ .Values.kms-generic.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "KMS-generic-helm-charts.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.kms-generic.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "KMS-generic-helm-charts.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.kms-generic.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "KMS-generic-helm-charts.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.kms-generic.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.kms-generic.securityContext | nindent 12 }}
+          image: "{{ .Values.kms-generic.image.repository }}:{{ .Values.kms-generic.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.kms-generic.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.kms-generic.resources | nindent 12 }}
+      {{- with .Values.kms-generic.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kms-generic.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kms-generic.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
