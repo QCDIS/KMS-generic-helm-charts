@@ -22,4 +22,4 @@ data:
   POSTGRES_PORT : {{ .Values.postgresql.containerPorts.postgresql | default "5432" | quote }}
   POSTGRES_USER : {{ .Values.postgresql.auth.username }}
   POSTGRES_DB : {{ .Values.postgresql.auth.database | default "kms_db" | quote }}
-  POSTGRES_PASSWORD: {{ .Values.postgresql.auth.password }}
+  POSTGRES_PASSWORD: {{ .Values.postgresql.auth.password | default "kms_db" | quote }}
