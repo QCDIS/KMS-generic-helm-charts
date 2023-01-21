@@ -19,8 +19,7 @@ data:
   KMS_ADMIN_USERNAME:  {{ .Values.kms_generic.kms_admin }}
   KMS_ADMIN_PASSWORD:  {{ .Values.kms_generic.kms_password }}
   POSTGRES_HOSTNAME : {{ .Release.Name }}-postgresql
-  POSTGRES_PORT : "5432"
+  POSTGRES_PORT : {{ .Values.postgresql.containerPorts.postgresql | default "5432" | quote }}
   POSTGRES_USER : {{ .Values.postgresql.auth.username }}
   POSTGRES_DB : {{ .Values.postgresql.auth.database }}
   POSTGRES_PASSWORD: {{ .Values.postgresql.auth.password }}
-  MY_NAME: {{ include "kms-generic-helm-charts.fullname" . }}-config
