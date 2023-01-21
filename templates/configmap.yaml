@@ -20,6 +20,6 @@ data:
   KMS_ADMIN_PASSWORD:  {{ .Values.kms_generic.security.kms_password | default "kms_password" | quote}}
   POSTGRES_HOSTNAME : {{ .Release.Name }}-postgresql
   POSTGRES_PORT : {{ .Values.postgresql.containerPorts.postgresql | default "5432" | quote }}
-  POSTGRES_USER : {{ .Values.postgresql.auth.username }}
+  POSTGRES_USER : {{ .Values.postgresql.auth.username | default "kms_db_user" | quote }}
   POSTGRES_DB : {{ .Values.postgresql.auth.database | default "kms_db" | quote }}
   POSTGRES_PASSWORD: {{ .Values.postgresql.auth.password | default "kms_db" | quote }}
