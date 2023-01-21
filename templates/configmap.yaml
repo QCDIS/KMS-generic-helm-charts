@@ -16,8 +16,8 @@ data:
   ACCESS_TOKEN_Github: ""
   ACCESS_TOKEN_Gitlab: ""
   GITHUB_QUERY_URL: {{ .Values.kms_generic.github_query_url | default "https://api.github.com/search/code?l=Jupyter+Notebook&q=ipynb+in:path+extension:ipynb" }}
-  KMS_ADMIN_USERNAME:  {{ .Values.kms_generic.security.kms_admin }}
-  KMS_ADMIN_PASSWORD:  {{ .Values.kms_generic.security.kms_password }}
+  KMS_ADMIN_USERNAME:  {{ .Values.kms_generic.security.kms_admin | default "kms_admin" | quote }}
+  KMS_ADMIN_PASSWORD:  {{ .Values.kms_generic.security.kms_password | default "kms_password" | quote}}
   POSTGRES_HOSTNAME : {{ .Release.Name }}-postgresql
   POSTGRES_PORT : {{ .Values.postgresql.containerPorts.postgresql | default "5432" | quote }}
   POSTGRES_USER : {{ .Values.postgresql.auth.username }}
