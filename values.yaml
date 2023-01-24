@@ -8,6 +8,11 @@ global:
 kms_generic:
   postgresql:
     hostname: ""
+    port: ""
+    database: ""
+    auth:
+      username: ""
+      password: ""
 
   github_query_url: ""
   elasticsearch:
