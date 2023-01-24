@@ -30,8 +30,4 @@ data:
   POSTGRES_USER : "kms_db_user"
   POSTGRES_DB : "kms_db"
   POSTGRES_PASSWORD: "kms_db"
-#  POSTGRES_PORT : {{ .Values.postgresql.containerPorts.postgresql | default "5432" | quote }}
-#  POSTGRES_USER : {{ .Values.postgresql.auth.username | default "kms_db_user" | quote }}
-#  POSTGRES_DB : {{ .Values.postgresql.auth.database | default "kms_db" | quote }}
-#  POSTGRES_PASSWORD: {{ .Values.postgresql.auth.password | default "kms_db" | quote }}
 {{- end }}
