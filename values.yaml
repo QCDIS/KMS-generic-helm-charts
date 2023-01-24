@@ -6,6 +6,9 @@ global:
   elasticsearchEnabled: true
 
 kms_generic:
+  postgresql:
+    hostname: ""
+
   github_query_url: ""
   elasticsearch:
     url: ""
