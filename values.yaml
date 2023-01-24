@@ -6,6 +6,14 @@ global:
   elasticsearchEnabled: true
 
 kms_generic:
+  postgresql:
+    hostname: ""
+    port: ""
+    database: ""
+    auth:
+      username: ""
+      password: ""
+
   github_query_url: ""
   elasticsearch:
     url: ""

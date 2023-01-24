@@ -18,10 +18,16 @@ data:
   GITHUB_QUERY_URL: {{ .Values.kms_generic.github_query_url | default "https://api.github.com/search/code?l=Jupyter+Notebook&q=ipynb+in:path+extension:ipynb" }}
   KMS_ADMIN_USERNAME:  {{ .Values.kms_generic.security.kms_admin | default "kms_admin" | quote }}
   KMS_ADMIN_PASSWORD:  {{ .Values.kms_generic.security.kms_password | default "kms_password" | quote}}
-{{- if .Values.global.postgresqlEnabled }}
+{{- if .Values.kms_generic.postgresql.hostname }}
+  POSTGRES_HOSTNAME : {{ .Values.kms_generic.postgresql.hostname }}
+  POSTGRES_PORT : {{ .Values.kms_generic.postgresql.port | default "5432" | quote }}
+  POSTGRES_USER : {{ .Values.kms_generic.postgresql.auth.username | default "kms_db_user" | quote }}
+  POSTGRES_DB : {{ .Values.kms_generic.postgresql.database | default "kms_db" | quote }}
+  POSTGRES_PASSWORD: {{ .Values.kms_generic.postgresql.auth.password | default "kms_db" | quote }}
+{{- else }}
   POSTGRES_HOSTNAME : {{ .Release.Name }}-postgresql
-  POSTGRES_PORT : {{ .Values.postgresql.containerPorts.postgresql | default "5432" | quote }}
-  POSTGRES_USER : {{ .Values.postgresql.auth.username | default "kms_db_user" | quote }}
-  POSTGRES_DB : {{ .Values.postgresql.auth.database | default "kms_db" | quote }}
-  POSTGRES_PASSWORD: {{ .Values.postgresql.auth.password | default "kms_db" | quote }}
+  POSTGRES_PORT: "5432"
+  POSTGRES_USER : "kms_db_user"
+  POSTGRES_DB : "kms_db"
+  POSTGRES_PASSWORD: "kms_db"
 {{- end }}
