@@ -84,6 +84,11 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: POSTGRES_PASSWORD
+            - name: BASE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: BASE_PATH
           ports:
             - name: http
               containerPort: 8000

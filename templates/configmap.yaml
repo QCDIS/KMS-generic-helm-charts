@@ -31,3 +31,4 @@ data:
   POSTGRES_DB : "kms_db"
   POSTGRES_PASSWORD: "kms_db"
 {{- end }}
+  BASE_PATH: {{ .Values.kms_generic.base_path | default "search" }}
