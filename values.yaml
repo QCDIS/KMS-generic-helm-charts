@@ -13,7 +13,7 @@ kms_generic:
     auth:
       username: ""
       password: ""
-  base_path: ""
+  base_path: "search"
 
   github_query_url: ""
   elasticsearch:
