@@ -3,7 +3,6 @@ global:
   elasticsearchEnabled: false
 
 kms_generic:
-  tag: v0.1
   replicaCount: 1
   autoscaling:
     enabled: false
