@@ -1,0 +1,26 @@
+global:
+  postgresqlEnabled: false
+  elasticsearchEnabled: false
+
+kms_generic:
+  tag: v0.1
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+  image:
+    pullPolicy: Always
+  base_path: kms
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations:
+        nginx.ingress.kubernetes.io/add-base-url: "true"
+    hosts:
+      - host: localhost
+        paths:
+          - path: /kms(/|$)(.*)
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: localhost
+        hosts:
+          - localhost
