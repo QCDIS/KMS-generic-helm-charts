@@ -1,4 +1,4 @@
-name: lint-helm
+name: lint-helm-test-template
 
 on:
   [push]
@@ -17,3 +17,15 @@ jobs:
         uses: WyriHaximus/github-action-helm3@v3
         with:
           exec: helm lint . -f ${{ matrix.paths }}
+
+      - uses: balchua/microk8s-actions@v0.3.0
+        with:
+          channel: '1.25/stable'
+      - name: Test ${{ matrix.paths }}
+        id: k8s
+        run: |
+          helm template . -f ${{ matrix.paths }} > output.yaml
+          kubectl apply -f output.yaml
+          sleep 5 
+          kubectl get pods -A -o wide
+
