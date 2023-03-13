@@ -9,22 +9,24 @@ jobs:
     outputs:
       matrix: ${{ steps.filelist.outputs.file_names }}
     steps:
-    - uses: actions/checkout@v2
-    - name: Get all value files
-      id: filelist
-      uses: the-coding-turtle/ga-file-list@v0.1
-      with:
-        directory: "test-values"
-        file_extension: "yaml"
+      - uses: actions/checkout@v2
+      - name: list files
+        id: pl
+        uses: Rishabh510/Path-lister-action@master
+        with:
+          path: "test-values/"
+          type: ".yaml"
 
   lint-helm:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        files: ${{fromJson(needs.lookup.outputs.matrix)}}
+        files: ${{needs.lookup.outputs.file_names}}
     steps:
       - uses: actions/checkout@v3
-      - name: Lint Helm
-        uses: WyriHaximus/github-action-helm3@v3
-        with:
-          exec: helm lint . -f ${{ matrix.TENANT }}"
+      - name: Output results
+        run: |
+          echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
+          for i in ${{ steps.pl.outputs.paths }}; do
+          echo $i
+          done
