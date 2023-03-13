@@ -34,11 +34,6 @@ spec:
           image: "{{ .Values.kms_generic.image.repository }}:{{ .Values.kms_generic.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.kms_generic.image.pullPolicy }}
           env:
-            - name: BASE_PATH
-              valueFrom:
-                configMapKeyRef:
-                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
-                  key: BASE_PATH
             - name: ELASTICSEARCH_URL
               valueFrom:
                 configMapKeyRef:
@@ -89,6 +84,11 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: POSTGRES_PASSWORD
+            - name: BASE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: BASE_PATH
           ports:
             - name: http
               containerPort: 8000
