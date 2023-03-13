@@ -21,12 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        files: ${{needs.lookup.outputs.file_names}}
+        files: ${{ needs.lookup.outputs.file_names }}
     steps:
       - uses: actions/checkout@v3
       - name: Output results
         run: |
-          echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
-          for i in ${{ steps.pl.outputs.paths }}; do
+          echo "Found ${{ steps.filelist.outputs.file_names }} file(s) with this extension:"
+          for i in ${{ steps.filelist.outputs.file_names }}; do
           echo $i
           done
