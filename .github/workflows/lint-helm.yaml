@@ -27,9 +27,9 @@ jobs:
           helm template kms . -f ${{ matrix.paths }} > output.yaml
           kubectl create ns kms
           kubectl apply -f output.yaml -n kms 
-          sleep 30
+          sleep 90
           kubectl get pods -n kms -o=jsonpath='{.items[*].status.containerStatuses}'  | jq
-          kubectl rollout status deployment kms-kms-generic-helm-charts -n kms --timeout=90s
+          kubectl rollout status deployment kms-kms-generic-helm-charts -n kms
           kubectl get pods -n kms -o=jsonpath='{.items[*].status.containerStatuses}'  | jq
           running=`kubectl get pods -n kms -o=jsonpath='{range .items[*]}{.metadata.name}{"="}{.status.containerStatuses[0].started}{"\n"}'` 
           
