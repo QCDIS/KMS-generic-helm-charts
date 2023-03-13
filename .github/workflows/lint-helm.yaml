@@ -1,4 +1,4 @@
-name: test-k8s-files
+name: lint-helm
 
 on:
   [push]
@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: list files
-        id: pl
+        id: lookup
         uses: Rishabh510/Path-lister-action@master
         with:
           path: "test-values/"
