@@ -18,10 +18,11 @@ jobs:
           type: ".yaml"
 
   lint-helm:
+    needs: lookup
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        files: ${{ needs.filelist.outputs.* }}
+        paths: ${{ needs.filelist.outputs.* }}
     steps:
       - uses: actions/checkout@v3
 
