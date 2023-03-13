@@ -5,6 +5,10 @@ global:
   postgresqlEnabled: true
   elasticsearchEnabled: true
 
+elasticsearch:
+  security:
+    elasticUsername: elastic
+
 kms_generic:
   github_query_url: ""
   elasticsearch:
