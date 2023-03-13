@@ -34,6 +34,11 @@ spec:
           image: "{{ .Values.kms_generic.image.repository }}:{{ .Values.kms_generic.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.kms_generic.image.pullPolicy }}
           env:
+            - name: BASE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  key: BASE_PATH
             - name: ELASTICSEARCH_URL
               valueFrom:
                 configMapKeyRef:
@@ -90,11 +95,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /{{ .Values.kms_generic.base_path }}
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /{{ .Values.kms_generic.base_path }}
               port: http
           resources:
             {{- toYaml .Values.kms_generic.resources | nindent 12 }}

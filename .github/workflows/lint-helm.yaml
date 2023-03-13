@@ -32,7 +32,7 @@ jobs:
           running=`kubectl get pods -n kms -o=jsonpath='{range .items[*]}{.metadata.name}{"="}{.status.containerStatuses[0].started}{"\n"}'` 
           
           if [[ "$running" == *"false"* ]]; then
-            echo "It's there."
+            echo "Failed"
             echo running=false >> "$GITHUB_OUTPUT"
           fi
 

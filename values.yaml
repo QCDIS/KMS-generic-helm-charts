@@ -26,7 +26,7 @@ kms_generic:
     kms_admin: ""
     kms_password: ""
 
-
+  base_path: search
   replicaCount: 1
 
   image:
