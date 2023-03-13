@@ -95,11 +95,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /{{ .Values.kms_generic.base_path }}
+              path: /{{ .Values.kms_generic.base_path | default "search" }}
               port: http
           readinessProbe:
             httpGet:
-              path: /{{ .Values.kms_generic.base_path }}
+              path: /{{ .Values.kms_generic.base_path | default "search" }}
               port: http
           resources:
             {{- toYaml .Values.kms_generic.resources | nindent 12 }}
