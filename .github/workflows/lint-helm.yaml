@@ -15,4 +15,4 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: debug
-        run: echo '${{ matrix.paths) }}'
+        run: echo '${{ matrix.paths }}'
