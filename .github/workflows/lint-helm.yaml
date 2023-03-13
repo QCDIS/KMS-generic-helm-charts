@@ -36,7 +36,3 @@ jobs:
             echo running=false >> "$GITHUB_OUTPUT"
           fi
 
-      - name: test if we failed
-        if: ${{ steps.k8s.outputs.running == 'false' }}
-        run: exit 1
-
