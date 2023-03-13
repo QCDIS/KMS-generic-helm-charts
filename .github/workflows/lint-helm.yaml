@@ -4,27 +4,15 @@ on:
   [push]
 
 jobs:
-  lookup:
-    runs-on: ubuntu-latest
-    outputs:
-      paths: ${{ steps.filelist.outputs }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: list files
-        id: filelist
-        uses: Rishabh510/Path-lister-action@master
-        with:
-          path: "test-values/"
-          type: ".yaml"
 
   lint-helm:
-    needs: lookup
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        paths: ${{ needs.filelist.outputs.* }}
+        paths:
+          - "test-values/test-values1.yaml"
     steps:
       - uses: actions/checkout@v3
 
       - name: debug
-        run: echo '${{ toJSON(needs.filelist.outputs) }}'
+        run: echo '${{ matrix.paths) }}'
