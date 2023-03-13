@@ -7,11 +7,11 @@ jobs:
   lookup:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.filelist.outputs.file_names }}
+      paths: ${{ steps.filelist.outputs.paths }}
     steps:
       - uses: actions/checkout@v2
       - name: list files
-        id: lookup
+        id: filelist
         uses: Rishabh510/Path-lister-action@master
         with:
           path: "test-values/"
@@ -21,12 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        files: ${{ needs.lookup.outputs.file_names }}
+        files: ${{ needs.filelist.outputs.paths }}
     steps:
       - uses: actions/checkout@v3
       - name: Output results
         run: |
-          echo "Found ${{ steps.filelist.outputs.file_names }} file(s) with this extension:"
-          for i in ${{ steps.filelist.outputs.file_names }}; do
-          echo $i
-          done
+          echo "Found ${{ matrix.files }}"
