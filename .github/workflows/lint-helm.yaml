@@ -4,7 +4,6 @@ on:
   [push]
 
 jobs:
-
   lint-helm:
     runs-on: ubuntu-latest
     strategy:
@@ -14,5 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: debug
-        run: echo '${{ matrix.paths }}'
+      - name: test with  ${{ matrix.paths }}
+        uses: WyriHaximus/github-action-helm3@v3
+        with:
+          exec: helm lint . -f ${{ matrix.paths }}

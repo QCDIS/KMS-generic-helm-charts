@@ -7,18 +7,22 @@ jobs:
   test-k8s-files:
     name: 'k8s'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        paths:
+          - "test-values/test-values1.yaml"
     steps:
+
       - name: 'Checkout'
         uses: actions/checkout@master
 
       - uses: balchua/microk8s-actions@v0.3.0
         with:
           channel: '1.25/stable'
-      - name: Test MicroK8s
+      - name: Test ${{ matrix.paths }}
         id: k8s
         run: |
-          helm template . -f ~/Downloads/values.yaml
-          kubectl apply -f sources/student_service.yaml
-          kubectl apply -f sources/mongodb.yaml
+          helm template . -f ${{ matrix.paths }} > output.yaml
+          kubectl apply -f output.yaml
           sleep 5 
           kubectl get pods -A -o wide
