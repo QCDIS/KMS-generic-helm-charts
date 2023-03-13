@@ -7,7 +7,7 @@ jobs:
   lookup:
     runs-on: ubuntu-latest
     outputs:
-      paths: ${{ steps.filelist.outputs.paths }}
+      paths: ${{ steps.filelist.outputs }}
     steps:
       - uses: actions/checkout@v2
       - name: list files
