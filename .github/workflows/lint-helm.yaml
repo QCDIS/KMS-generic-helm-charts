@@ -29,8 +29,6 @@ jobs:
           kubectl apply -f output.yaml -n kms 
           sleep 120
           kubectl get pods -n kms -o=jsonpath='{.items[*].status.containerStatuses}'  | jq
-#          kubectl rollout status deployment kms-kms-generic-helm-charts -n kms
-#          kubectl get pods -n kms -o=jsonpath='{.items[*].status.containerStatuses}'  | jq
           running=`kubectl get pods -n kms -o=jsonpath='{range .items[*]}{.metadata.name}{"="}{.status.containerStatuses[0].started}{"\n"}'` 
           
           if [[ "$running" == *"false"* ]]; then
