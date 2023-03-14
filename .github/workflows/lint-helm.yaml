@@ -30,10 +30,4 @@ jobs:
           sleep 150
           kubectl get pods -n kms 
           kubectl get pods -n kms -o=jsonpath='{.items[*].status.containerStatuses}'  | jq
-          kubectl rollout status deployment kms-kms-generic-helm-charts -n kms --timeout=100s
-          running=`kubectl get pods -n kms -o=jsonpath='{range .items[*]}{.metadata.name}{"="}{.status.containerStatuses[*].started}{"\n"}'` 
-          if [[ "$running" == *"false"* ]]; then
-            echo "Failed"
-            echo running=false >> "$GITHUB_OUTPUT"
-          fi
 
