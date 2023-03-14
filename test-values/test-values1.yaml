@@ -1,6 +1,6 @@
 global:
   postgresqlEnabled: false
-  elasticsearchEnabled: true:
+  elasticsearchEnabled: true
 
 kms_generic:
   replicaCount: 1
