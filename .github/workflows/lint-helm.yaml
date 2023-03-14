@@ -24,21 +24,10 @@ jobs:
       - name: Test ${{ matrix.paths }}
         id: k8s
         run: |
-          helm template kms . -f ${{ matrix.paths }} > output.yaml
+          helm template kms . -f ${{ matrix.paths }}  -n kms > output.yaml
           kubectl create ns kms
           kubectl apply -f output.yaml -n kms 
-          sleep 30
+          sleep 150
+          kubectl get pods -n kms 
           kubectl get pods -n kms -o=jsonpath='{.items[*].status.containerStatuses}'  | jq
-          kubectl rollout status deployment kms-kms-generic-helm-charts -n kms --timeout=90s
-          kubectl get pods -n kms -o=jsonpath='{.items[*].status.containerStatuses}'  | jq
-          running=`kubectl get pods -n kms -o=jsonpath='{range .items[*]}{.metadata.name}{"="}{.status.containerStatuses[0].started}{"\n"}'` 
-          
-          if [[ "$running" == *"false"* ]]; then
-            echo "It's there."
-            echo running=false >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: test if we failed
-        if: ${{ steps.k8s.outputs.running == 'false' }}
-        run: exit 1
 

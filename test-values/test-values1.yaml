@@ -1,9 +1,8 @@
 global:
   postgresqlEnabled: false
-  elasticsearchEnabled: false
+  elasticsearchEnabled: true
 
 kms_generic:
-  tag: v0.1
   replicaCount: 1
   autoscaling:
     enabled: false

@@ -10,6 +10,15 @@ elasticsearch:
     elasticUsername: elastic
 
 kms_generic:
+  postgresql:
+    hostname: ""
+    port: ""
+    database: ""
+    auth:
+      username: ""
+      password: ""
+  base_path: "search"
+
   github_query_url: ""
   elasticsearch:
     url: ""
@@ -17,8 +26,6 @@ kms_generic:
   security:
     kms_admin: ""
     kms_password: ""
-
-
   replicaCount: 1
 
   image:
@@ -88,9 +95,9 @@ kms_generic:
   autoscaling:
     enabled: false
     minReplicas: 1
-    maxReplicas: 100
+    maxReplicas: 5
     targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
 
   nodeSelector: {}
 
