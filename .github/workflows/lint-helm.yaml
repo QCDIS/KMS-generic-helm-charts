@@ -24,7 +24,7 @@ jobs:
       - name: Test ${{ matrix.paths }}
         id: k8s
         run: |
-          helm template kms . -f ${{ matrix.paths }} > output.yaml
+          helm template kms . -f ${{ matrix.paths }}  -n kms > output.yaml
           kubectl create ns kms
           kubectl apply -f output.yaml -n kms 
           sleep 150
