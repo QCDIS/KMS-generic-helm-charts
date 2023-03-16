@@ -94,6 +94,7 @@ spec:
               containerPort: 8000
               protocol: TCP
           livenessProbe:
+            initialDelaySeconds: 20
             httpGet:
               path: /{{ .Values.kms_generic.base_path | default "search" }}
               port: http
