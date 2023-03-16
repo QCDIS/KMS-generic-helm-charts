@@ -84,17 +84,24 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: POSTGRES_PASSWORD
+            - name: BASE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: BASE_PATH
           ports:
             - name: http
               containerPort: 8000
               protocol: TCP
           livenessProbe:
+            initialDelaySeconds: 20
             httpGet:
-              path: /
+              path: /{{ .Values.kms_generic.base_path | default "search" }}
               port: http
           readinessProbe:
+            initialDelaySeconds: 20
             httpGet:
-              path: /
+              path: /{{ .Values.kms_generic.base_path | default "search" }}
               port: http
           resources:
             {{- toYaml .Values.kms_generic.resources | nindent 12 }}
