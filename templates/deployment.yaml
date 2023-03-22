@@ -39,11 +39,11 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: ELASTICSEARCH_URL
-            - name: ACCESS_TOKEN_Github
+            - name: GITHUB_API_TOKEN
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
-                  key: ACCESS_TOKEN_Github
+                  key: GITHUB_API_TOKEN
             - name: ACCESS_TOKEN_Gitlab
               valueFrom:
                 configMapKeyRef:
@@ -105,6 +105,45 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.kms_generic.resources | nindent 12 }}
+
+        - name: { { .Chart.Name } }-indexer
+          securityContext:
+            { { - toYaml .Values.securityContext | nindent 12 } }
+          image: "{{ .Values.kms_generic.indexer.image.repository }}:{{ .Values.kms_generic.indexer.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: { { .Values.indexer.image.pullPolicy } }
+          env:
+            - name: ELASTICSEARCH_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  key: ELASTICSEARCH_URL
+            - name: GITHUB_API_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  key: GITHUB_API_TOKEN
+            - name: KAGGLE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  key: KAGGLE_USERNAME
+            - name: ELASTICSEARCH_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  key: ELASTICSEARCH_PASSWORD
+            - name: ELASTICSEARCH_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  key: ELASTICSEARCH_USERNAME
+            - name: KAGGLE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: { { include "kms-generic-helm-charts.fullname" . } }-config
+                  key: KAGGLE_KEY
+          resources:
+            { { - toYaml .Values.kms_generic.resources | nindent 12 } }
 
 
 

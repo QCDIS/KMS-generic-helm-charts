@@ -13,7 +13,9 @@ data:
 {{- end }}
   ELASTICSEARCH_USERNAME : {{ .Values.elasticsearch.security.elasticUsername | default "elastic" | quote }}
   ELASTICSEARCH_PASSWORD : {{ .Values.elasticsearch.security.elasticPassword | default "elastic" | quote}}
-  ACCESS_TOKEN_Github: ""
+  GITHUB_API_TOKEN: {{ .Values.indexer.security.github_api_token | quote }}
+  KAGGLE_USERNAME: {{ .Values.indexer.security.kaggle_username | quote }}
+  KAGGLE_KEY: {{ .Values.indexer.security.kaggle_key| quote }}
   ACCESS_TOKEN_Gitlab: ""
   GITHUB_QUERY_URL: {{ .Values.kms_generic.github_query_url | default "https://api.github.com/search/code?l=Jupyter+Notebook&q=ipynb+in:path+extension:ipynb" }}
   KMS_ADMIN_USERNAME:  {{ .Values.kms_generic.security.kms_admin | default "kms_admin" | quote }}
