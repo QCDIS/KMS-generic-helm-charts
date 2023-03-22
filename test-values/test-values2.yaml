@@ -41,3 +41,6 @@ indexer:
   replicaCount: 1
   image:
     pullPolicy: Always
+
+  persistence:
+    enabled: true

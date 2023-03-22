@@ -127,7 +127,6 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: ELASTICSEARCH_PASSWORD
-
             - name: KAGGLE_USERNAME
               valueFrom:
                 configMapKeyRef:
@@ -143,10 +142,24 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: GITHUB_API_TOKEN
+
+            - name: DATA_DIR
+              value: "/app/data"
+
+          volumeMounts:
+          - name: indexer-data-storage
+            mountPath: /app/data
           resources:
             {{- toYaml .Values.indexer.resources | nindent 12 }}
 
-
+      volumes:
+        - name: indexer-data-storage
+        {{- if .Values.indexer.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "indexer.pvc" . }}
+        {{- else }}
+          emptyDir: {}
+        {{ end }}
 
       {{- with .Values.kms_generic.nodeSelector }}
       nodeSelector:
