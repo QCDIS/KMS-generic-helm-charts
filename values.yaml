@@ -103,6 +103,10 @@ indexer:
     ##
     dataSource: {}
 
+  service:
+    type: ClusterIP
+    port: 8001
+
 kms_generic:
   postgresql:
     hostname: ""
