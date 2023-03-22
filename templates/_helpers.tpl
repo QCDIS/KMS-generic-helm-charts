@@ -60,3 +60,12 @@ Create the name of the service account to use
 {{- default "default" .Values.kms_generic.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+
+{{/*
+Set indexer PVC.
+*/}}
+{{- define "indexer.pvc" -}}
+{{- .Values.indexer.persistence.existingClaim | default (include "common.names.fullname" .) -}}
+{{- end -}}

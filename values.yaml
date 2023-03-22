@@ -4,6 +4,7 @@
 global:
   postgresqlEnabled: true
   elasticsearchEnabled: true
+  storageClass: ""
 
 elasticsearch:
   security:
@@ -77,6 +78,30 @@ indexer:
 
   persistence:
     enabled: false
+    storageClass: ""
+    existingClaim: ""
+    accessModes:
+      - ReadWriteOnce
+    ## @param persistence.size Size for the PV
+    ##
+    size: 5Gi
+    ## @param persistence.annotations Persistent Volume Claim annotations
+    ##
+    annotations: {}
+    ## @param persistence.subPath The subdirectory of the volume to mount to, useful in dev environments and one PV for multiple services
+    ##
+    subPath: ""
+    ## @param persistence.selector Selector to match an existing Persistent Volume for WordPress data PVC
+    ## If set, the PVC can't have a PV dynamically provisioned for it
+    ## E.g.
+    ## selector:
+    ##   matchLabels:
+    ##     app: my-app
+    ##
+    selector: {}
+    ## @param persistence.dataSource Custom PVC data source
+    ##
+    dataSource: {}
 
 kms_generic:
   postgresql:
