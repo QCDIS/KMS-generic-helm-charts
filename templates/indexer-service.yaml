@@ -4,7 +4,7 @@ metadata:
   name: {{ include "kms-generic-helm-charts.fullname" . }}-indexer
   labels:
     {{- include "kms-generic-helm-charts.labels" . | nindent 4 }}
-    app: {{ include "kms-generic-helm-charts.labels" . }}-indexer
+    app: {{ include "kms-generic-helm-charts.fullname" . }}-indexer
 spec:
   type: {{ .Values.indexer.service.type }}
   ports:
@@ -14,4 +14,4 @@ spec:
       name: http
   selector:
     {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 4 }}
-    app: {{ include "kms-generic-helm-charts.labels" . }}-indexer
+    app: {{ include "kms-generic-helm-charts.fullname" . }}-indexer

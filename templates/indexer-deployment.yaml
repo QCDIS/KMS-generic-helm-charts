@@ -12,7 +12,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 6 }}-indexer
+      {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 6 }}
       app: {{ include "kms-generic-helm-charts.fullname" . }}-indexer
   template:
     metadata:
