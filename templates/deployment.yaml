@@ -109,7 +109,7 @@ spec:
         - name: { { .Chart.Name } }-indexer
           securityContext:
             { { - toYaml .Values.securityContext | nindent 12 } }
-          image: "{{ .Values.indexer.image.repository }}:{{ .Values.kms_generic.indexer.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.indexer.image.repository }}:{{ .Values.indexer.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: { { .Values.indexer.image.pullPolicy } }
           env:
             - name: ELASTICSEARCH_HOST
