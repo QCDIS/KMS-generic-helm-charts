@@ -39,11 +39,11 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: ELASTICSEARCH_URL
-            - name: ACCESS_TOKEN_Github
+            - name: GITHUB_API_TOKEN
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
-                  key: ACCESS_TOKEN_Github
+                  key: GITHUB_API_TOKEN
             - name: ACCESS_TOKEN_Gitlab
               valueFrom:
                 configMapKeyRef:
@@ -106,7 +106,60 @@ spec:
           resources:
             {{- toYaml .Values.kms_generic.resources | nindent 12 }}
 
+        - name: {{ .Chart.Name }}-indexer
+          securityContext:
+            {{- toYaml .Values.indexer.securityContext | nindent 12 }}
+          image: "{{ .Values.indexer.image.repository }}:{{ .Values.indexer.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.indexer.image.pullPolicy }}
+          env:
+            - name: ELASTICSEARCH_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ELASTICSEARCH_URL
+            - name: ELASTICSEARCH_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ELASTICSEARCH_USERNAME
+            - name: ELASTICSEARCH_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ELASTICSEARCH_PASSWORD
+            - name: KAGGLE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: KAGGLE_USERNAME
+            - name: KAGGLE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: KAGGLE_KEY
+            - name: GITHUB_API_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: GITHUB_API_TOKEN
 
+            - name: DATA_DIR
+              value: "/app/data"
+
+          volumeMounts:
+          - name: indexer-data-storage
+            mountPath: /app/data
+          resources:
+            {{- toYaml .Values.indexer.resources | nindent 12 }}
+
+      volumes:
+        - name: indexer-data-storage
+        {{- if .Values.indexer.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "indexer.pvc" . }}
+        {{- else }}
+          emptyDir: {}
+        {{ end }}
 
       {{- with .Values.kms_generic.nodeSelector }}
       nodeSelector:
