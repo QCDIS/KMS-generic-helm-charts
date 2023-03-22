@@ -39,7 +39,7 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: ELASTICSEARCH_URL
-            - name: GITHUB_API_TOKEN
+            - name:  ACCESS_TOKEN_Github
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
