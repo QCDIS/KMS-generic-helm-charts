@@ -89,6 +89,26 @@ spec:
                 configMapKeyRef:
                   name: {{ include "kms-generic-helm-charts.fullname" . }}-config
                   key: BASE_PATH
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: DEBUG
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: SECRET_KEY
+            - name: ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ALLOWED_HOSTS
+            - name: CSRF_TRUSTED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: CSRF_TRUSTED_ORIGINS
           ports:
             - name: http
               containerPort: 8000
