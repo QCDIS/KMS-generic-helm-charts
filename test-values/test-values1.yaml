@@ -9,6 +9,11 @@ kms_generic:
   image:
     pullPolicy: Always
   base_path: kms
+  debug: true
+  security:
+    secret_key: "<insecure_django_secret_key>"
+    allowed_hosts: "*"
+    csrf_trusted_origins: "http://127.0.0.1:8080"
   ingress:
     enabled: true
     className: "nginx"
