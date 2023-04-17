@@ -22,6 +22,9 @@ spec:
       {{- end }}
       labels:
         {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 8 }}
+        {{- with .Values.indexer.podLabels }}
+        {{ toYaml . | nindent 8 }}
+        {{- end }}
         app: {{ include "kms-generic-helm-charts.fullname" . }}-indexer
     spec:
       {{- with .Values.indexer.imagePullSecrets }}
