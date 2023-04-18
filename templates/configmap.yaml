@@ -33,7 +33,7 @@ data:
   POSTGRES_DB : "kms_db"
   POSTGRES_PASSWORD: "kms_db"
 {{- end }}
-  BASE_PATH: {{ .Values.kms_generic.base_path | default "search" }}
+  BASE_PATH: {{ .Values.kms_generic.base_path | quote }}
   DEBUG: {{ .Values.kms_generic.debug | default false | quote }}
   SECRET_KEY: {{ .Values.kms_generic.security.secret_key | quote }}
   ALLOWED_HOSTS: {{ .Values.kms_generic.security.allowed_hosts | quote }}

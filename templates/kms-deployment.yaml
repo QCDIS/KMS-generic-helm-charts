@@ -116,12 +116,12 @@ spec:
           livenessProbe:
             initialDelaySeconds: 20
             httpGet:
-              path: /{{ .Values.kms_generic.base_path | default "search" }}
+              path: /{{ .Values.kms_generic.base_path | quote }}
               port: http
           readinessProbe:
             initialDelaySeconds: 20
             httpGet:
-              path: /{{ .Values.kms_generic.base_path | default "search" }}
+              path: /{{ .Values.kms_generic.base_path | quote }}
               port: http
           resources:
             {{- toYaml .Values.kms_generic.resources | nindent 12 }}
