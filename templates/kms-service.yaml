@@ -13,3 +13,6 @@ spec:
       name: http
   selector:
     {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 4 }}
+    {{- with .Values.kms_generic.podLabels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}

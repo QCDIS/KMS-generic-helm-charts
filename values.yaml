@@ -40,6 +40,9 @@ indexer:
 
   podAnnotations: {}
 
+  podLabels:
+    app.kubernetes.io/component: indexer
+
   podSecurityContext: {}
     # fsGroup: 2000
 
@@ -150,6 +153,9 @@ kms_generic:
     name: ""
 
   podAnnotations: {}
+
+  podLabels:
+    app.kubernetes.io/component: kms_generic
 
   podSecurityContext: {}
     # fsGroup: 2000

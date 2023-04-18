@@ -19,6 +19,9 @@ spec:
       {{- end }}
       labels:
         {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 8 }}
+        {{- with .Values.kms_generic.podLabels }}
+        {{ toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       {{- with .Values.kms_generic.imagePullSecrets }}
       imagePullSecrets:
