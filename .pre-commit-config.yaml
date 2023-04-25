@@ -1,0 +1,38 @@
+repos:
+  - repo: https://github.com/gitguardian/ggshield
+    rev: v1.14.2
+    hooks:
+      - id: ggshield
+        language_version: python3
+        stages: [commit]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-json
+      - id: check-added-large-files
+      - id: check-yaml
+
+  - repo: local
+    hooks:
+      - id: ggshield-local
+        name: GitGuardian Shield
+        entry: pipenv run ggshield secret scan pre-commit
+        language: system
+        types: [python]
+        stages: [commit]
+
+  - repo: local
+    hooks:
+      - id: ggshield-local
+        name: GitGuardian Shield
+        entry: pipenv run ggshield secret scan pre-push
+        language: system
+        pass_filenames: false
+        types: [python]
+        stages: [push]
+
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.19.0
+    hooks:
+      - id: check-github-workflows

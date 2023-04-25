@@ -31,7 +31,7 @@ kms_generic:
 
 indexer:
   security:
-    github_api_token: "SECRET"
+    github_api_token: "TOKEN"
     kaggle_username: "USER"
     kaggle_key: "KEY"
 
