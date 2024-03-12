@@ -1,13 +1,40 @@
 global:
   postgresqlEnabled: false
-  elasticsearchEnabled: true
+  elasticsearchEnabled: false
+  kibanaEnabled: false
+
+elasticsearch:
+  master:
+    resources:
+      limits:
+        cpu: .125
+  data:
+    resources:
+      limits:
+        cpu: .125
+  coordinating:
+    resources:
+      limits:
+        cpu: .125
+  ingest:
+    resources:
+      limits:
+        cpu: .125
+
+  kibana:
+    ingress:
+      enabled: true
+      className: nginx
+      path: /kibana2/
+
 
 kms_generic:
   replicaCount: 1
   autoscaling:
     enabled: false
   image:
-    pullPolicy: Always
+    repository: local/kms-generic
+    pullPolicy: Never
   base_path: kms
   debug: true
   security:
@@ -22,6 +49,8 @@ kms_generic:
     hosts:
       - host: localhost
         paths:
+          - path: /
+            subPath: /kms/
           - path: /kms(/|$)(.*)
             pathType: ImplementationSpecific
     tls:
