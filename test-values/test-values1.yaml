@@ -51,6 +51,7 @@ kms_generic:
         paths:
           - path: /
             subPath: /kms/
+            pathType: ImplementationSpecific
           - path: /kms(/|$)(.*)
             pathType: ImplementationSpecific
     tls:
